@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <?!= include("page-css");?>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  </head>
+
+  <body>
+  
+  <!--<img src="https://drive.google.com/uc?export=view&id=1C3151fDxUkydw9SRFiYrLwgii2bntHhv" width="100%" height="56.32%" alt="Aalto logo"> -->
+
+   <!-- The model will calculate the emissions of electricity, heating, food, travelling, water usage, waste handling, consumables, leisure and summer cottages. -->
+    <div class="container">
+   
+      <h1>Personal CO<SUB>2</SUB> footprint calculator</h1>
+      
+      <blockquote>
+        The model will calculate the emissions of electricity, heating, food, travelling, water usage, waste handling, consumables, leisure and summer cottages.
+        If some of the asked questions do not apply for you, just leave them at default.
+      </blockquote>
+      
+      <h3>General</h3>
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <label for="input1">Input1: </label><input type="text" id="input1" class="validate">
+        </div>
+      
+        <div class="input-field col s6">
+          <label for="input2">Input2: </label><input type="text" id="input2" class="validate">
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <form action="#">
+          <p class="range-field col s12">
+            <label for="ageIn">Your age: </label>
+            <input type="range" id="ageIn" value="25" min="0" max="120"/>
+          </p>
+        </form>
+      </div> <!--ROW END-->
+      
+    <h3>Housing</h3>
+    
+    <div class="row">      
+        <label>Hometown: </label>
+        <?!= include("municipality");?> 
+    </div>
+    
+    <div class="row">
+      <label>Housing type: </label>
+      <?!= include("housingType");?>
+    </div>
+    
+    <div class="row">
+      <label>Housing age: </label>
+      <?!= include("houseAge");?>
+    </div>
+    
+    <div class="row">
+      <label>Heat source: </label>
+      <?!= include("heatSource");?>  
+    </div>
+    
+    <div class="row">
+      <label>Residents in the apartment: </label>
+      <input type="number" id="residents" placeholder="1" min="0" max="20">
+    </div>    
+    
+    <h3>Travelling</h3>
+    
+    <div class="row">
+      <details>
+      <summary>Personal car</summary>
+     
+        <div class="row">
+          <label>Vehicle fuel: </label>
+          <?!= include("fuelType");?>  
+        </div>
+        
+        <div class="row">
+          <label class="car"> Fuel consumption / 100 km: </label>
+          <input type="number" id="fuelConsumption" placeholder="0,0" step="0.1" min="0" max="20">
+        </div>
+        
+        <div class="row">
+          <form name="annualDriving">
+            <label>Annual driving </label>
+            <output id="kmOut">0</output>
+            <label> kilometres</label>
+            <input type="range" id="kmIn" value="0" min="0" step="1000" max="50000" oninput="kmOut.value = kmIn.value">
+          </form>
+        </div>
+        
+      </details>
+    </div>
+    
+    <div class="row">
+      <details>
+        <summary>Public transport</summary>
+        
+        <div class="row">
+          <label>Vehicle: </label>
+          <?!= include("publicTransportTypes");?>  
+        </div>
+        
+        <div class="row">
+          <form name="weeklyCommuting">
+            <label>Average amount of weekly commuting</label>
+            <output id="kmOut">0</output>
+            <label> kilometres</label>
+            <input type="range" id="kmIn" value="0" min="0" step="10" max="1000" oninput="kmOut.value = kmIn.value">
+          </form>
+        </div>
+        
+        
+      </details>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s10">
+        <button id="btn" class="waves-effect waves-light btn-large blue darken-2"><i class="material-icons left">insert_chart</i>calculate carbon footprint</button>
+      </div>
+      <div class="input-field col s2">
+        <div id="loader" class="loader"></div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="barChartBox">
+        <div class="input-field col s12">
+          <canvas id="chart"></canvas>
+        </div>
+      </div>
+    </div>
+    
+     <div class="row">
+        <div id="leafletMap"></div>
+     </div>   
+      
+      
+     <p id="chosenMun">
+       Click on a municipality on the map to make a comparison with your local area.
+     </p>
+
+
+  </div> <!--CONTAINER END-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+  <?!= include("page-js");?>
+  
+  </body>
+  
+</html>
+
+

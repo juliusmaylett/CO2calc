@@ -1,0 +1,16 @@
+{
+  "timeZone": "Europe/Bucharest",
+  "dependencies": {
+    "libraries": [{
+      "userSymbol": "MyOldCode",
+      "libraryId": "1jiNZ_V89Q05yKaP08XHYKruSkr3YaHAzaBPft0d7s4q1SAIelNKK8j4b",
+      "version": "8"
+    }]
+  },
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}
