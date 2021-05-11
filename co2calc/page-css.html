@@ -6,7 +6,7 @@
 
 <style>
   * {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Poppins', sans-serif;
   }
 </style>
 
@@ -60,14 +60,6 @@
 </style>
 
 <style>
-  .personalCar 
-    {
-    display: block;
-    }
-    
-</style>
-
-<style>
     .munMame { font: 40px sans-serif; fill: black; stroke: black }
   </style>
   
@@ -109,6 +101,141 @@
     margin: 0 0 5px;
     color: #777;
 }
+
+
+#elecMoneyDetail {
+  display: none;
+}
+#elecEnergyDetail {
+  display: none;
+}
+#prosumer {
+  display: none;
+}
+#personalCar {
+  display: none;
+}
+
+#detailedDiet {
+  display: none;
+}
+
+
+#foodDetailedPart {
+  display: none;
+}
+
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -140px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+//
+
+#hiddenPart, #housingPart, #electricityPart, #waterUsagePart, #leisurePart, #saunaTimesSection, 
+#consumablesPart, #wasteHandlingPart, #travelPart, #resultPart, #nonVegan, #progress, #navigationBar, #foodPart, #twoWheeledQuestions, #carTable, #petTable, #myBtn {
+  display: none;
+}
+
+p.pos_fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 1em 0;
+    margin: 0;
+    text-align:center;
+    color: red;
+}
+
+f {
+  font-size: 12px;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,1); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+      
+
+
 </style>
 
 

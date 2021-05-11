@@ -4,156 +4,928 @@
     <base target="_top">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <?!= include("page-css");?>
+
+    
+    
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    
+    <?!= include("page-css");?>
+    <title>CO<sub>2</sub>Footprint Calculator</title>
+    
   </head>
   <body>
 
+
    <!-- The model will calculate the emissions of electricity, heating, food, travelling, water usage, waste handling, consumables, leisure and summer cottages. -->
-    <div class="container">
-   
+  <div class="container">
+
+    <div class="progress" id="progress">
+      <div class="determinate" style="width: 0%"></div>
+    </div>
+    
+    
+    <div class="row">
+    
+    <div id="navigationBar">
+      <div class="input-field col s1">
+
+      </div>
+      
+      <div class="input-field col s1">
+        <center>
+          <a class="btn-floating btn-large waves-light red" onClick="jumpSections('housingPart')"><i class="material-icons">home</i></a>
+          <f style="text-align:center">Housing</f>
+        </center>
+      </div>
+      <div class="input-field col s1">
+        <center>
+          <a class="btn-floating btn-large  waves-light yellow disabled" id="elecButton" onClick="jumpSections('electricityPart')"><i class="material-icons">bolt</i></a>
+          <f style="text-align:center" >Electricity</f>
+        </center>
+      </div>
+      <div class="input-field col s1">
+        <center>
+          <a class="btn-floating btn-large  waves-light light-blue darken-4 disabled" id="waterUsageButton" onClick="jumpSections('waterUsagePart')"><i class="material-icons">water_drop</i></a>
+          <f style="text-align:center" >Water usage</f>
+        </center>
+      </div>
+      <div class="input-field col s1">
+        <center>
+        <a class="btn-floating btn-large  waves-light green disabled" id="leisureButton" onClick="jumpSections('leisurePart')"><i class="material-icons">watch_later</i></a>
+        <f style="text-align:center" >Leisure</f>
+        </center>
+      </div>
+      <div class="input-field col s1">
+        <center>
+        <a class="btn-floating btn-large  waves-light orange disabled" id="consumablesButton" onClick="jumpSections('consumablesPart')"><i class="material-icons">euro_symbol</i></a>
+        <f style="text-align:center">Consumables</f>
+        </center>
+      </div>
+      <div class="input-field col s1">
+        <center>
+        <a class="btn-floating btn-large  waves-light grey darken-2 disabled" id="wasteHandlingButton" onClick="jumpSections('wasteHandlingPart')"><i class="material-icons">delete</i></a>
+        <f style="text-align:center" >Waste handling</f>
+        </center>
+      </div>
+      <div class="input-field col s1">
+        <center>
+        <a class="btn-floating btn-large  waves-light teal lighten-2 disabled" id="foodButton" onClick="jumpSections('foodPart')"><i class="material-icons">restaurant</i></a>
+        <f style="text-align:center" >Food</f>
+        </center>
+      </div>
+      <div class="input-field col s1">
+        <center>
+        <a class="btn-floating btn-large  waves-light deep-purple disabled" id="travelButton" onClick="jumpSections('travelPart')"><i class="material-icons">flight</i></a>
+        <f style="text-align:center" >Travelling</f>
+        </center>
+      </div>
+      
+      <div class="input-field col s1">
+        <center>
+        <a class="btn-floating btn-large  waves-light light-green disabled" id="resultButton" onClick="jumpSections('resultPart')"><i class="material-icons">poll</i></a>
+        <f style="text-align:center" >Results</f>
+        </center>
+      </div>
+      
+
+     
+      
+    </div>
+    </div>
+    
+    
+    <div id="startPart">
       <h1>Personal CO<SUB>2</SUB> footprint calculator</h1>
       
       <blockquote>
         The model will calculate the emissions of electricity, heating, food, travelling, water usage, waste handling, consumables, leisure and summer cottages.
         If some of the asked questions do not apply for you, just leave them at default.
       </blockquote>
+      <div class="row">
+        <div class="input-field col s10">
+          <button class=" waves-light btn-large blue darken-2" onclick="moveAndHide('housingPart', 'startPart')">Start calculation</button>
+        </div>
+      </div>
       
-      <h3>General</h3>
+    <div class="row">
+    
+      <div class="col s3">
+        <div class="card">
+          <div class="card-image  waves-block waves-light">
+            <img class="activator" src="https://media.istockphoto.com/photos/solar-energy-and-wind-power-stations-picture-id1032683612?k=6&m=1032683612&s=612x612&w=0&h=QJtO5t5l96H4aHh3CGTSaLD5a97VClFY23C447MX3Ew=">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">Project info<i class="material-icons right">more_vert</i></span>
+            <p><a href="https://mycourses.aalto.fi/course/view.php?id=28580" target="_blank">Course homepage</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+            <p>This project was made during the Aalto ELEC course ELEC-E8004 Project Work by Julius Maylett, Panu Tiihonen, Tommi Mäkila & Basit Ali Khan. 
+            The project will be continued during the course PHYS-E0580 - Climate.Now.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col s3">
+        <div class="card">
+          <div class="card-image  waves-block waves-light">
+            <img class="activator" src="https://images.pexels.com/photos/957024/forest-trees-perspective-bright-957024.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">Other information<i class="material-icons right">more_vert</i></span>
+            <p><a>.</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col s3">
+        <div class="card">
+          <div class="card-image  waves-block waves-light">
+            <img class="activator" src="https://media.istockphoto.com/photos/cropped-of-man-holding-cell-phone-at-working-place-picture-id666135210?k=6&m=666135210&s=612x612&w=0&h=Vp78Az9bxoQXzZZwVCaqAFmUzHR9TeCKscJ4a2EeVH4=">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">Contact us<i class="material-icons right">more_vert</i></span>
+            <p><a>.</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
       
+    </div>
+      
+      
+      
+      
+    </div> <!--START PART ENDS-->
+      
+    <div id="housingPart" progress="width: 11%">
+      
+      <h3>Housing</h3>
+      
+        <div class="row">
+          <div class="input-field col s6">
+            <?!= include("municipality");?> 
+            <label>Hometown: </label>
+          </div>
+          <div class="input-field col s6">
+            <?!= include("housingType");?>
+            <label>Housing type: </label>
+          </div>
+        </div> <!--ROW END-->
+  
       <div class="row">
         <div class="input-field col s6">
-          <label for="input1">Input1: </label><input type="text" id="input1" class="validate">
+          <?!= include("heatSource");?>
+          <label>Heat source: </label>
         </div>
-      
         <div class="input-field col s6">
-          <label for="input2">Input2: </label><input type="text" id="input2" class="validate">
+          <?!= include("houseAge");?>
+          <label>Housing age: </label>
         </div>
+      </div> <!--ROW END-->
+  
+      <div class="row">
+        <div class="input-field col s3">
+          <label>Housing area in m<sup>2</sup>:</label>
+          <input type="number" id="housingArea" placeholder="0" min="0" max="1000">
+        </div> 
+        <div class="input-field col s3">
+          <label>Residents in the apartment: </label>
+          <input type="number" id="residents" placeholder="1" min="0" max="20">
+        </div> 
+        <div class="input-field col s6">
+          <label>Typical room temperature in °C:</label>
+          <input type="number" id="roomTemp" placeholder="21" min="0" max="40">
+        </div>  
       </div> <!--ROW END-->
       
       <div class="row">
-        <form action="#">
-          <p class="range-field col s12">
-            <label for="ageIn">Your age: </label>
-            <input type="range" id="ageIn" value="25" min="0" max="120"/>
-          </p>
-        </form>
+        <div class="input-field col s6">
+          <select id="saunaType" onchange="showDiv('saunaTimesSection', this)">
+            <option value="" disabled selected>Choose sauna type</option>
+            <option value="0">No sauna</option>
+            <option value="1">Electric</option>
+            <option value="2">Wood</option>
+          </select>
+          <label>What type of a sauna do you have?</label>
+        </div>  
+        <div id="saunaTimesSection" >
+          <div class="input-field col s6">
+            <label>How many times per month do you go there?: </label>
+            <input type="number" id="saunaPerMonth" placeholder="1" min="0" max="20">
+          </div>   
+        </div>  
       </div> <!--ROW END-->
       
-    <h3>Housing</h3>
-    
-    <div class="row">      
-        <label>Hometown: </label>
-        <?!= include("municipality");?> 
-    </div>
-    
-    <div class="row">
-      <label>Housing type: </label>
-      <?!= include("housingType");?>
-    </div>
-    
-    <div class="row">
-      <label>Housing age: </label>
-      <?!= include("houseAge");?>
-    </div>
-    
-    <div class="row">
-      <label>Heat source: </label>
-      <?!= include("heatSource");?>  
-    </div>
-    
-    <div class="row">
-      <label>Residents in the apartment: </label>
-      <input type="number" id="residents" placeholder="1" min="0" max="20">
-    </div>    
-    
-    <h3>Travelling</h3>
-    
-    <div class="row">
-      <details>
-      <summary>Personal car</summary>
-     
-        <div class="row">
-          <label>Vehicle fuel: </label>
-          <?!= include("fuelType");?>  
+      <div class="row">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('startPart', 'housingPart')">Back to start</button>
         </div>
-        
-        <div class="row">
-          <label class="car"> Fuel consumption / 100 km: </label>
-          <input type="number" id="fuelConsumption" placeholder="0,0" step="0.1" min="0" max="20">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="validateHousing()">Next part</button>
         </div>
-        
-        <div class="row">
-          <form name="annualDriving">
-            <label>Annual driving </label>
-            <output id="kmOut">0</output>
-            <label> kilometres</label>
-            <input type="range" id="kmIn" value="0" min="0" step="1000" max="50000" oninput="kmOut.value = kmIn.value">
-          </form>
-        </div>
-        
-      </details>
-    </div>
-    
-    <div class="row">
-      <details>
-        <summary>Public transport</summary>
-        
-        <div class="row">
-          <label>Vehicle: </label>
-          <?!= include("publicTransportTypes");?>  
-        </div>
-        
-        <div class="row">
-          <form name="weeklyCommuting">
-            <label>Average amount of weekly commuting</label>
-            <output id="kmOut">0</output>
-            <label> kilometres</label>
-            <input type="range" id="kmIn" value="0" min="0" step="10" max="1000" oninput="kmOut.value = kmIn.value">
-          </form>
-        </div>
-        
-        
-      </details>
-    </div>
-    
-    <div class="row">
-      <div class="input-field col s10">
-        <button id="btn" class="waves-effect waves-light btn-large blue darken-2"><i class="material-icons left">insert_chart</i>calculate carbon footprint</button>
-      </div>
-      <div class="input-field col s2">
-        <div id="loader" class="loader"></div>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="barChartBox">
-        <div class="input-field col s12">
-          <canvas id="chart"></canvas>
-        </div>
-      </div>
-    </div>
-    
-     <div class="row">
-        <div id="leafletMap"></div>
-     </div>   
+      </div> <!--ROW END-->
       
+    </div> <!--HOUSING PART END-->
+    
+    <div id="electricityPart" progress="width: 22%">
+    
+      <h3>Electricity</h3>
       
-     <p id="chosenMun">
-       Click on a municipality on the map to make a comparison with your local area.
-     </p>
+      <div class="row">
+        <div class="input-field col s6">
+          <select id="elecContractType">
+            <option value="" disabled selected>Choose electricity contract type</option>
+            <option value="1">Conventional</option>
+            <option value="2">Renewable</option>
+            <option value="1">Not known</option>
+          </select>
+          <label>Electricity contract type: </label>
+        </div>
+        
+        <div class="input-field col s6">
+          <select id="prosumerOrNot" onchange="showDiv('prosumer', this)">
+            <option value="" disabled selected>Choose appropriately</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+          <label>Are you a prosumer?  
+            <div class="tooltip">What is this? 
+              <span class="tooltiptext">A prosumer is an individual who both consumes and produces. 
+              In this context it would mean own electricity generation from e.g. rooftop solar.</span>
+            </div>   
+          </label>
+        </div> 
+      </div> <!--ROW END-->
+        
+      <div class="row">
+        <div class="input-field col s6">
+          <div id="prosumer">
+            <form name="prosumerPercentage">
+              <output id="prosumerShareOut">0</output>
+              <label>% of my consumption is covered by own renewable prodcuction</label>
+              <input type="range" id="prosumerShareIn" value="0" min="0" step="1" max="100" oninput="prosumerShareOut.value = prosumerShareIn.value">
+            </form>
+          </div>
+        </div>
+      </div> <!--ROW END-->
+        
+        
+      <div class="row">
+        <div class="input-field col s6">
+          <select id="elecDetail" onchange="showElecDetails(this)">
+            <option value="" disabled selected>Choose appropriately</option>
+            <option value="1">my annual electricity consumption.</option>
+            <option value="2">my monthly eletricity bill.</option>
+            <option value="0">neither.</option>
+          </select>
+          <label>I know...</label>
+        </div>
 
+        <div id="elecMoneyDetail" class="input-field col s6">
+          <label>Give cost in €/month</label>
+          <input type="number" id="elecMonthlyBill" min="0">
+        </div>  
+        
+        <div id="elecEnergyDetail" class="input-field col s6">
+          <label>Give annual electricity consumption in kWh</label>
+          <input type="number" id="elecAnnualConsumption" min="0">
+        </div>  
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('housingPart', 'electricityPart')">Previous part</button>
+        </div>
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="validateElectricity()">Next part</button>
+        </div>
+      </div> <!--ROW END-->
+      
+    </div> <!--ELECTRICITY PART END-->
+    
+    
+    <div id="waterUsagePart" progress="width: 33%">
+      
+      <h3>Water Usage</h3>
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="dailyShowerMinutes" type="number" min="0">
+          <label>Daily shower time in minutes</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="weeklyDishes" type="number" min="0">
+          <label>Weekly number of dishwashes</label>
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="weeklyLaundry" type="number">
+          <label>Weekly number of laundry washes</label>
+        </div>
+        
+        <div class="input-field col s6">
+          <select id="showerTemp">
+            <option value="" disabled selected>How do you like your shower?</option>
+            <option value="41">Hot</option>
+            <option value="35">Cold</option>
+            <option value="38">Standard</option>
+          </select>
+        </div>
+      </div>  <!--ROW END-->
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('electricityPart', 'waterUsagePart')">Previous part</button>
+        </div>
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="validateWaterUsage()">Next part</button>
+        </div>
+      </div> <!--ROW END-->
+      
+    </div> <!--WATER USAGE PART END-->
+    
+    <div id="leisurePart" progress="width: 44%">
+      <h3>Leisure</h3>
+      
+      <blockquote>
+        In this part all of the information should be fed as reasonably priced products and services in euros per year.
+      </blockquote>
+  
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="hotels" type="number" min="0">
+          <label>Accomodation services</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="restaurants" type="number" min="0">
+          <label>Restaurants</label> 
+        </div>
+      </div> <!--ROW END-->
+  
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="hobbies" type="number" min="0">
+          <label>Hobbies and instruments</label> 
+        </div>
+        <div class="input-field col s6">
+          <input id="games" type="number" min="0">
+          <label>Games and toys</label> 
+        </div>
+      </div>  <!--ROW END-->
+    
+      <div class="row">
+      
+        <div class="input-field col s12">
+          <form id="ownProductionShare" name="prosumerPercentage">
+            <output id="leisureSecondHandOut">0</output>
+            <label>% of the above is used on second-hand products</label>
+            <input type="range" id="leisureSecondHand" value="0" min="0" step="1" max="100" oninput="leisureSecondHandOut.value = leisureSecondHand.value">
+          </form>
+        </div>
+      </div> <!--ROW END-->
+    
+      <h4>Pets</h4>
+      
+      <blockquote>
+        Add pets in the table with the form by defining quantity, size and diet and press calculate emissions. Selected items can be deleted with the designated button.
+      </blockquote>
+        <form>
+        <div class="row">
+          <div class="input-field col s2">
+            <input type="number" id="quantity" placeholder="Quantity">
+          </div>
+          <div class="input-field col s3">
+            <SELECT name="petSize" id="petSize">
+              <option selected="true" value="" disabled>Select size</option>
+              <OPTION value="Small">Small</OPTION>
+              <OPTION value="Medium">Medium</OPTION>
+              <OPTION value="Large">Large</OPTION>
+            </SELECT>
+          </div>
+          <div class="input-field col s3">
+            <SELECT name="diet" id="petDiet" type="text">
+            <option selected="true" value="" disabled>Select diet</option>
+              <OPTION value="Vegetarian">Vegetarian</OPTION>
+              <OPTION value="Carnivore">Carnivore</OPTION>
+            </SELECT>
+          </div>
+          <div class="input-field col s1">
+            <a id="addPetRow"class=" waves-light btn-small">Add</a>
+          </div>
+          <div class="input-field col s3">
+            <a id="deletePetRow"class=" waves-light btn-small">Delete</a>
+          </div>
+        </div> <!--ROW END-->
+        
+        </form>
+        <table id="petTable" class="highlight">
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Quantity</th>
+              <th>Size</th>
+              <th>Diet</th>
+            </tr>
+          </thead>
+          <tbody>
+    
+          </tbody>
+        </table>
+        
+      <div class="row">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('waterUsagePart', 'leisurePart')">Previous part</button>
+        </div>
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="validateLeisure()">Next part</button>
+        </div>
+      </div> <!--ROW END-->
+        
+      </div> <!--LEISURE PART END-->
+
+    <div id="consumablesPart" progress="width: 55%">
+    
+      <h3>Consumables</h3>
+    
+      <blockquote>
+      In this part all of the information should be fed as reasonably priced products and services in euros per year.
+      </blockquote>
+    
+      <div class="row">
+        <div class="input-field col s4">
+          <input id="elecSpent" type="number" min="0">
+          <label>Electronics</label> 
+        </div>
+        <div class="input-field col s4">
+          <input id="furnSpent" type="number" min="0">
+          <label>Furniture</label> 
+        </div>
+        <div class="input-field col s4">
+          <input id="clothSpent" type="number" min="0">
+          <label>Clothes and accessories</label> 
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="bagSpent" type="number" min="0" required>
+          <label>Handbags and suitcases</label> 
+        </div>
+        <div class="input-field col s6">
+          <input id="glassSpent" type="number" min="0">
+          <label>Glass and plastic products</label> 
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <div class="input-field col s12">
+          <form name="prosumerPercentage">
+            <output id="consumablesSecondHandOut">0</output>
+            <label>% of the above is used on second-hand products</label>
+            <input type="range" id="consumablesSecondHand" value="0" min="0" step="1" max="100" 
+            oninput="consumablesSecondHandOut.value = consumablesSecondHand.value">
+          </form>
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('leisurePart', 'consumablesPart')">Previous part</button>
+        </div>
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="validateConsumables()">Next part</button>
+        </div>
+      </div> <!--ROW END-->
+      
+    </div> <!--CONSUMABLES PART END-->
+    
+    <div id="wasteHandlingPart" progress="width: 66%">
+      
+      <h3>Waste handling</h3>
+    
+        <table>
+          <thead>
+            <tr>
+              <th>Waste type</th>
+              <th>How often do you recycle?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Biowaste</td>
+               <td>        
+                 <select id="biowaste">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+            <tr>
+              <td>Cardboard</td>
+               <td>        
+                 <select id="cardboard">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+            <tr>
+              <td>Glass</td>
+               <td>        
+                 <select id="glass">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+            <tr>
+              <td>Metal</td>
+               <td>        
+                 <select id="metal">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+            <tr>
+              <td>Plastic</td>
+               <td>        
+                 <select id="plastic">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+            <tr>
+              <td>Paper</td>
+               <td>        
+                 <select id="paper">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+            <tr>
+              <td>Electronics</td>
+               <td>        
+                 <select id="electronicsWaste">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+            <tr>
+              <td>Hazardous waste</td>
+               <td>        
+                 <select id="hazardousWaste">
+                   <option value="" disabled selected>Select</option>
+                   <option value="0.0">Not recycled</option>
+                   <option value="0.25">Seldomly recycled</option>
+                   <option value="0.75">Mostly recycled</option>
+                   <option value="1">Always recycled</option>
+                 </select>
+               </td>
+            </tr>
+          </tbody>
+        </table>
+        
+     <div class="row">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('waterUsagePart', 'wasteHandlingPart')">Previous part</button>
+        </div>
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="validateWasteHandling()">Next part</button>
+        </div>
+      </div> <!--ROW END-->
+        
+    </div> <!--WASTE HANDLING PART END-->   
+    
+    
+    <div id="foodPart" progress="width: 77%">
+      
+      <h3>Food</h3>
+      
+      <div class="row">
+        <div class="input-field col s6" onchange="showDiv('nonVegan', this)">
+          <select id="diet">
+            <option value="" disabled selected>Select your diet</option>
+            <option value="0">Omnivore</option>
+            <option value="3">Vegetarian</option>
+            <option value="666">Vegan</option>
+          </select>
+          <label>Diet</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="portionSize">
+            <option value="" disabled selected>Select your portion size</option>
+            <option value="0.7">Small</option>
+            <option value="1.0">Medium</option>
+            <option value="1.3">Large</option>
+          </select>
+          <label>Followed diet</label>
+        </div>
+      </div> <!--ROW END-->
+      
+      <div id="nonVegan">
+        <div class="switch" id="detailedDiet">
+          <label>
+            Use the Finnish average
+            <input type="checkbox">
+            <span class="lever"></span>
+            I want to answer in more detail
+          </label>
+        </div>
+      </div>
+    
+      <div id="foodDetailedPart">
+      <blockquote>
+          Fill in the following table concerning the specified food products by weekly consumption.
+      </blockquote> 
+        <div class="row">
+          <div id="redMeat">
+            <div class="input-field col s12">
+              <input id="beef" type="number" min="0">
+              <label>Beef (g/week)</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="pork" type="number" min="0">
+              <label>Pork (g/week)</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="poultry" type="number" min="0">
+              <label>Poultry (g/week)</label>
+            </div>
+          </div>
+          <div class="input-field col s12">
+            <input id="eggs" type="number" min="0">
+            <label>Eggs (pcs/week)</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="fish" type="number" min="0">
+            <label>Fish (g/week)</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="dairy" type="number" min="0">
+            <label>Dairy products (liters/week)</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="cheese" type="number" min="0">
+            <label>Cheese (slices/week)</label>
+          </div>
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('wasteHandlingPart', 'foodPart')">Previous part</button>
+        </div>
+        <div class="input-field col s6">
+          <button class=" waves-light btn-small blue darken-2" onclick="validateFood()">Next part</button>
+        </div>
+      </div> <!--ROW END-->
+      
+    </div> <!--FOOD PART END-->
+    
+    
+    <div id="travelPart" progress="width: 88%">
+    
+      <h3>Travelling</h3>
+  
+      <div class="row"> 
+        <div class="input-field col s6">
+            <input id="publicTransport" type="number" min="0">
+            <label>Public transport (km/week)?</label>
+        </div>
+        
+        <div class="input-field col s6">
+            <input id="marine" type="number" min="0">
+            <label>Annual hours on cruising ships?</label>
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row"> 
+        <div class="input-field col s6">
+            <input id="aviaTotal" type="number" min="0">
+            <label>Annual aviation hours?</label>
+        </div>
+        <div class="input-field col s6">
+            <input id="aviaOver3h" type="number" min="0" max="100">
+            <label>Portion of > 3 hour flights, %</label>
+        </div>
+      </div> <!--ROW END-->
+
+      <div class="row"> 
+          <div class="input-field col s12">
+            <select id="twoWheeled" onchange="showDiv('twoWheeledQuestions', this)">
+              <option value=""disabled selected>Select</option>
+              <option value="0">No</option> 
+              <option value="1">Yes</option>
+            </select>
+            <label>Do you drive a motorbike or a moped?</label>
+          </div>
+      </div>
+  
+      <div class="row">
+        <div id="twoWheeledQuestions">
+          <div class="input-field col s6">
+            <input id="kmBike" type="number" min="0">
+            <label>How many kilometers do you drive per year?</label>
+          </div>  
+          <div class="input-field col s6">
+            <input id="consumptionBike" type="number" min="0">
+            <label>What is the consumption of the fuel in L/100 km?</label> 
+          </div> 
+       </div>
+     </div> <!--ROW END-->
+  
+     <blockquote>
+          Calculates.....
+     </blockquote>
+  
+       
+     <div class="row">
+        <label>Do you drive a car?</label>
+        <select id="carOrNo" onchange="showDiv('personalCar', this)">
+          <option value="" disabled selected>Select</option>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+          
+      <div id="personalCar">
+       
+        <div class="row">
+          <div class="input-field col s3">
+            <SELECT name="carType" id="carType" onchange="showDiv('consumtion100km', this)">
+              <option selected="true" value="" disabled>Select type</option>
+              <OPTION num ="1" value="Gasoline">Gasoline</OPTION>
+              <OPTION num ="2" value="Diesel">Diesel</OPTION>
+              <OPTION num ="3" value="Gasoline hybrid">Gasoline hybrid</OPTION>
+              <OPTION num ="4" value="Diesel hybrid">Diesel hybrid</OPTION>
+              <OPTION num ="5" value="Electric">Electric</OPTION>
+            </SELECT>
+          </div>
+          <div class="input-field col s3">
+            <select id="carSize">
+              <option value="" disabled selected>Car size</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+            </select>
+            <label>Select car size</label>
+          </div>
+          <div class="input-field col s2">
+            <input id="kilometersDriven" type="number" min="0" max="100000">
+            <label>km/year</label>
+          </div>
+          <div id="consumptionBlock">
+            <div class="input-field col s2">
+              <input id="consumtion100km" type="number" min="0" max="20">
+              <label>Fuel/100km</label>
+            </div>
+          </div>
+          <div id="elecShareBlock">
+            <div class="input-field col s2">
+              <input id="elecPortion" type="number" min="0" max="20">
+              <label>Elec portion %</label>
+            </div>
+          </div>
+      </div> <!--ROW END-->
+
+      <div class="row">
+        <div class="input-field col s3">
+          <a id="addCarRow" class=" waves-light btn-small">Add</a>
+        </div>
+        <div class="input-field col s3">
+          <a id="deleteCarRow" class=" waves-light btn-small">Delete</a>
+        </div>
+      </div> <!--ROW END-->
+  
+      <table id="carTable" class="highlight">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Annual kilometers</th>
+            <th>Elec portion %</th>
+            <th>Avg.cons./100 km</th>
+          </tr>
+        </thead>
+        <tbody>
+  
+        </tbody>
+      </table>
+    
+    </div> <!--PERSONAL CAR PART END-->
+    
+    <div class="row">
+      <div class="input-field col s6">
+        <button class=" waves-light btn-small blue darken-2" onclick="moveAndHide('foodPart', 'travelPart')">Previous part</button>
+      </div>
+      <div class="input-field col s6">
+        <button class=" waves-light btn-small blue darken-2" onclick="validateTravel()">Next part</button>
+      </div>
+    </div> <!--ROW END-->
+      
+    </div> <!--TRAVEL PART END-->
+    
+    
+    <!-- RESULTS PART STARTS-->
+    <div id="resultPart" progress="width: 100%">
+      
+      <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+      eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</blockquote>
+      
+      <div class="row">
+        <div class="input-field col s4">
+          <button id="toTravel" class=" waves-light btn-small blue darken-2" onclick="moveAndHide('travelPart', 'resultPart')">Previous part</button>
+        </div>
+        <div class="input-field col s6">
+          <button id="btn" class=" waves-light btn-large blue darken-2" type="submit" name="action"><i class="material-icons left">insert_chart</i>calculate carbon footprint</button>
+        </div>
+        <div class="input-field col s2">
+          <div id="loader" class="loader"></div>
+        </div>
+      </div> <!--ROW END-->
+      
+      <div class="row">
+        <div id="totalEmissions"></div>
+      </div>
+      
+      <div class="row">
+        <div class="barChartBox">
+          <div class="input-field col s12">
+            <canvas id="chart"></canvas>
+          </div>
+        </div>
+      </div> <!--ROW END-->
+    
+    </div> <!-- RESULTS PART ENDS-->
 
   </div> <!--CONTAINER END-->
+
+
+      <!-- Trigger/Open The Modal -->
+  <button id="myBtn">Open Modal</button>
+  
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span id="closeModal"class="close">&times;</span>
+      <center><p id="modalText"></p></center>
+    </div>  
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
   <?!= include("page-js");?>
-  
+
   </body>
+  
+
+        
   
 </html>
 
