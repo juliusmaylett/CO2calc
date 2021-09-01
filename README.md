@@ -6,3 +6,5 @@ The CO2 calculator is a project for the Aalto University course ELEC-E8004 - Pro
 Google Apps Script was chosen to be the backend of the calculator and most coding was done in HTML and JavaScript. The model can be used from a separate GUI, which will be placed on the project page for users to interact with.
 
 Calculator online: https://script.google.com/macros/s/AKfycbze_x3LC9dp-hxg3mhvQAtgBMoSh9IjmROIWH6Rl3-gwOWIejQ/exec
+
+Broader documentation can be found from the Aalto Wiki page: https://wiki.aalto.fi/display/AEEproject/Calculation+model+for+personal+carbon+footprint
